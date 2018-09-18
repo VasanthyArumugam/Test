@@ -1,0 +1,113 @@
+package test2;
+
+//class Module2
+
+/**
+* This class count and lists all the links present in Home page
+*
+*
+* @author Vasanthy
+* @version Last modified 6/28/2018 
+*/
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.net.URL;
+import java.net.HttpURLConnection;
+
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class Module2 {
+
+	public static void main (String [] args)
+	{
+	
+		//Creating webdriver Interface object
+		WebDriver driver = new FirefoxDriver();
+		driver.get("http://www.itelearn.com");
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		String pageTitle =  driver.getTitle();
+	//	System.out.println(pageTitle);
+		String expPageTitle = "Sel+Katalon";
+		if (pageTitle.equalsIgnoreCase(expPageTitle))
+		{
+			System.out.println("page title matches");
+			System.out.println(pageTitle);
+		}	
+		else
+		{		
+		System.out.println("page title do not match");
+		System.out.println(pageTitle);
+		}
+				
+		List<WebElement> links = driver.findElements(By.tagName("a"));
+		int linksCount = links.size();
+			
+		System.out.println(linksCount);
+		
+		for (int i = 0; i <linksCount; i++)
+		{
+			//to get the text of the attribute ex: "go to website" is the link and when clicked on that the URL is "https://itelearn.com/home"
+			// in getText() it appends the "go to website" text
+		 String linksText =links.get(i).getText();
+		 //To get the URL of the webpage example : "https://itelearn.com/home"
+	    String linksUrl = links.get(i).getAttribute("href");
+		 
+		 System.out.println(linksUrl);
+		}
+		 
+		/* 
+		 
+        String linksUrl = links.get(i).getAttribute("href");
+			
+		VerifyAllLinksStatus(linksUrl);
+		}
+	}
+	
+		
+		/**
+		* This method will verify 200 response code
+		*
+		*
+		* @author Vasanthy
+		* @version Last modified 7/2/2018 
+		*/
+		 /*
+	
+		public static void VerifyAllLinksStatus(String linksUrl ) {
+			try
+			{
+				URL url = new URL(linksUrl);
+				HttpURLConnection httpURLConnect=(HttpURLConnection)url.openConnection();
+				httpURLConnect.setConnectTimeout(4000);
+				httpURLConnect.connect();
+				
+				if(httpURLConnect.getResponseCode() == 200)
+				{
+		          System.out.println(linksUrl + "---" + httpURLConnect.getResponseMessage());
+				}
+			   
+				if(httpURLConnect.getResponseCode()==HttpURLConnection.HTTP_NOT_FOUND) 
+	            {
+			 	System.out.println(linksUrl + "---" + httpURLConnect.getResponseMessage() + "---" + HttpURLConnection.HTTP_NOT_FOUND );
+	             }
+	    	}		
+			
+			  catch(Exception e)
+			  {
+				System.out.println(e);
+		      	}
+			*/
+						
+		}
+
+}
+		
+	
+
+
